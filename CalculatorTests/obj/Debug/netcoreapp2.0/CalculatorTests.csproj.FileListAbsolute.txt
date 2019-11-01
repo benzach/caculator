@@ -1,0 +1,17 @@
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\CalculatorTests.deps.json
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\CalculatorTests.runtimeconfig.json
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\CalculatorTests.runtimeconfig.dev.json
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\CalculatorTests.dll
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\CalculatorTests.pdb
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\calculator.dll
+C:\dev\calculator\CalculatorTests\bin\Debug\netcoreapp2.0\calculator.pdb
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.csprojResolveAssemblyReference.cache
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.csproj.CoreCompileInputs.cache
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.AssemblyInfoInputs.cache
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.AssemblyInfo.cs
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.csproj.CopyComplete
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.dll
+C:\dev\calculator\CalculatorTests\obj\Debug\netcoreapp2.0\CalculatorTests.pdb
