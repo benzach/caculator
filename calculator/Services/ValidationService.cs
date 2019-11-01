@@ -44,33 +44,45 @@ namespace calculator.Services
                 return (true,ret);
             }
             var operands = commaSeparatedOperands.Split(new char[] { ',','\n' });
-            if (operands.Length <= 2)
-            {
-                var binary = Validate(commaSeparatedOperands);
-                ret.Values.Add(binary.Operand1);
-                ret.Values.Add(binary.Operand2);
-                if(binary.Operand1<0 || binary.Operand2<0)
-                {
-                    var negativeoperands = new Operands();
-                    if (binary.Operand1 < 0)
-                    {
-                        negativeoperands.Values.Add(binary.Operand1);
-                    }
-                    if (binary.Operand2 < 0)
-                    {
-                        negativeoperands.Values.Add(binary.Operand2);
-                    }
-                    return (false, negativeoperands);
-                }
-                return (true,ret);
-            }
-            ret.Values.AddRange(operands.Select(x => x.ToIntOperand()));
-            if(ret.Values.Any(x=>x<0))
+            //if (operands.Length <= 2)
+            //{
+            //    var binary = Validate(commaSeparatedOperands);
+            //    ret.Values.Add(binary.Operand1);
+            //    ret.Values.Add(binary.Operand2);
+            //    if(binary.Operand1<0 || binary.Operand2<0)
+            //    {
+            //        var negativeoperands = new Operands();
+            //        if (binary.Operand1 < 0)
+            //        {
+            //            negativeoperands.Values.Add(binary.Operand1);
+            //        }
+            //        if (binary.Operand2 < 0)
+            //        {
+            //            negativeoperands.Values.Add(binary.Operand2);
+            //        }
+            //        return (false, negativeoperands);
+            //    }
+            //    return (true,ret);
+            //}
+            if (operands.Select(x => x.ToIsValidOperand()).Any(x => !x.isValid))
             {
                 var negativeResult = new Operands();
-                negativeResult.Values.AddRange(ret.Values.Where(x => x < 0).ToList());
+                negativeResult.Values.AddRange(
+                                            operands.Select(x => x.ToIsValidOperand())
+                                            .Where(x => !x.isValid)
+                                            .Select(x => x.value)
+                                        );
                 return (false, negativeResult);
             }
+
+            ret.Values.AddRange(operands.Select(x => x.ToIsValidOperand().value));
+            //ret.Values.AddRange(operands.Select(x => x.ToIntOperand()));
+            //if(ret.Values.Any(x=>x<0))
+            //{
+            //    var negativeResult = new Operands();
+            //    negativeResult.Values.AddRange(ret.Values.Where(x => x < 0).ToList());
+            //    return (false, negativeResult);
+            //}
             return (true,ret);
         }
     }
