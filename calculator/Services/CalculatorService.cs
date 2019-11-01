@@ -22,14 +22,14 @@ namespace calculator.Services
             return binaryOperands.Operand1 + binaryOperands.Operand2;
         }
 
-        public int AddOperands(string numbersSeparatedByComma)
+        public (List<int> operands, int sum) AddOperands(string numbersSeparatedByComma)
         {
             var isValidOperands = _ValidationService.ValidateMultipleOperands(numbersSeparatedByComma);
             if(!isValidOperands.isValid)
             {
                 throw new NegativeOperandsException(isValidOperands.operands.Values);
             }
-            return isValidOperands.operands.Values.Sum();
+            return (isValidOperands.operands.Values, isValidOperands.operands.Values.Sum());
         }
     }
 }

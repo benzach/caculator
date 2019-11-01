@@ -27,8 +27,9 @@ namespace calculator
                 }
                 try
                 {
-                    var sum = CalculatorService.AddOperands(input);
-                    Console.WriteLine($"sum of {input} = {sum}");
+                    var sumResult = CalculatorService.AddOperands(input);
+                    //Console.WriteLine($"sum of {input} = {sum}");
+                    Console.WriteLine($"{string.Join('+', sumResult.operands)} = {sumResult.sum}");
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);

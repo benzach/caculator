@@ -36,7 +36,7 @@ namespace CalculatorTests
             
             var calService = new CalculatorService(validationService);
             var sum = calService.AddOperands(commaSeparated);
-            Assert.Equal(expected, sum);
+            Assert.Equal(expected, sum.sum);
 
         }
         [Theory]
