@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/calculator/v15/Server/sqlite3
+/calculator/bin/Debug/netcoreapp2.0
+/calculator/obj/Debug/netcoreapp2.0
+/calculator/obj
