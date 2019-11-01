@@ -15,7 +15,7 @@ namespace calculator.Services
             {
                 return new BinaryOperands { Operand1 = 0, Operand2 = 0 };
             }
-            var operands = commaSeparatedOperands.Split(new char[] { ',' });
+            var operands = commaSeparatedOperands.Split(new char[] { ',','\n' });
             if(operands.Length>2)
             {
                 throw new NotBinaryOperandException();
@@ -58,7 +58,7 @@ namespace calculator.Services
                 ret.Values.AddRange(new [] { 0, 0 });
                 return ret;
             }
-            var operands = commaSeparatedOperands.Split(new char[] { ',' });
+            var operands = commaSeparatedOperands.Split(new char[] { ',','\n' });
             if (operands.Length <= 2)
             {
                 var binary = Validate(commaSeparatedOperands);
