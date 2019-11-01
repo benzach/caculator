@@ -16,15 +16,15 @@ namespace calculator.Models.extension
                 return 0;
             }
         }
-        public static (bool isValid, int value) ToIsValidOperand(this string operand)
+        public static (bool isValid, int value) ToIsValidOperand(this string operand,int maxVal,bool denyNegative)
         {
             if(int.TryParse(operand, out int ret))
             {
-                if(ret<0)
+                if(denyNegative && ret<0)
                 {
                     return (false, ret);
                 }
-                if(ret>1000)
+                if(ret>maxVal)
                 {
                     return (true, 0);
                 }

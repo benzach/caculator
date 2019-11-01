@@ -40,8 +40,12 @@ namespace calculator.Services
             throw new ArgumentException();
         }
 
-        public (bool isValid, Operands operands) ValidateMultipleOperands(string commaSeparatedOperands)
+        public (bool isValid, Operands operands) ValidateMultipleOperands(string commaSeparatedOperands,string alternative= "", bool denyNegative = true, int maxOperand = 1000)
         {
+            if(string.IsNullOrEmpty(alternative))
+            {
+                alternative = "\n";
+            }
             var ret = new Operands();
 
             if (string.IsNullOrEmpty(commaSeparatedOperands))
@@ -56,7 +60,7 @@ namespace calculator.Services
             string[] delimiters;
             if(delimterAndInput.delimiter.Length==0)
             {
-                delimiters = new string[] { ",", "\n" };
+                delimiters = new string[] { ",", alternative };
             }else
             {
                 delimiters = delimterAndInput.delimiter;
@@ -64,18 +68,18 @@ namespace calculator.Services
             }
 
             var operands = commaSeparatedOperands.Split(delimiters,StringSplitOptions.None);
-            if (operands.Select(x => x.ToIsValidOperand()).Any(x => !x.isValid))
+            if (operands.Select(x => x.ToIsValidOperand(maxOperand,denyNegative)).Any(x => !x.isValid))
             {
                 var negativeResult = new Operands();
                 negativeResult.Values.AddRange(
-                                            operands.Select(x => x.ToIsValidOperand())
+                                            operands.Select(x => x.ToIsValidOperand(maxOperand,denyNegative))
                                             .Where(x => !x.isValid)
                                             .Select(x => x.value)
                                         );
                 return (false, negativeResult);
             }
 
-            ret.Values.AddRange(operands.Select(x => x.ToIsValidOperand().value));
+            ret.Values.AddRange(operands.Select(x => x.ToIsValidOperand(maxOperand,denyNegative).value));
             return (true,ret);
         }
     }

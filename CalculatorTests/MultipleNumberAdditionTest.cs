@@ -28,7 +28,7 @@ namespace CalculatorTests
         [InlineData(@"//,\n2,ff,100", 102)]
         [InlineData(@"//[***]\n11***22***33", 66)]
         [InlineData(@"//[###]\n11###22###33", 66)]
-        [InlineData(@"//[*][!!][r9r]\n11r9r22*hh*33!!44",110)]
+        [InlineData(@"//[*][!!][r9r]\n11r9r22*hh*33!!44", 110)]
         public void OperandListAddTest(string commaSeparated, int expected)
         {
             var delimterService = new DelimiterService();
@@ -39,6 +39,53 @@ namespace CalculatorTests
             Assert.Equal(expected, sum.sum);
 
         }
+        [Theory]
+        [InlineData("1,5000", 1)]
+        [InlineData("1\n5000\n", 1)]
+        [InlineData("2,1001,6", 1009)]
+        [InlineData("2,1001\n6", 1009)]
+        public void OperandListAndTestWitLimit2000(string input, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.AddOperands(input,"",true,2000);
+            Assert.Equal(expectedResult, sum.sum);
+
+        }
+        [Theory]
+        [InlineData("1b5000","b", 1)]
+        [InlineData("1c5000c","c", 1)]
+        [InlineData("2*1001*6","*", 1009)]
+        [InlineData("2i1001i6","i", 1009)]
+        public void OperandListAndTestDiffDelimiter(string input, string delimiter, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.AddOperands(input, delimiter, true, 2000);
+            Assert.Equal(expectedResult, sum.sum);
+
+        }
+
+
+        [Theory]
+        [InlineData("4,-3", 1)]
+        [InlineData("4,-3,-2,-1,-9", -11)]
+        [InlineData("4,-3\n-2\n-1,-9", -11)]
+        public void OperandListAndTestWitLimitAllowNegative(string input, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.AddOperands(input, "", false, 2000);
+            Assert.Equal(expectedResult, sum.sum);
+
+        }
+
         [Theory]
         [InlineData("4,-3", new int[] { -3 })]
         [InlineData("4,-3,-2,-1,-9",new int[]{-3,-2,-1,-9})]

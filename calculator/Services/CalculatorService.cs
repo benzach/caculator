@@ -22,9 +22,9 @@ namespace calculator.Services
             return binaryOperands.Operand1 + binaryOperands.Operand2;
         }
 
-        public (List<int> operands, int sum) AddOperands(string numbersSeparatedByComma)
+        public (List<int> operands, int sum) AddOperands(string numbersSeparatedByComma,string alternative="",bool denyNegative=true,int maxOperand=1000)
         {
-            var isValidOperands = _ValidationService.ValidateMultipleOperands(numbersSeparatedByComma);
+            var isValidOperands = _ValidationService.ValidateMultipleOperands(numbersSeparatedByComma,alternative,denyNegative,maxOperand);
             if(!isValidOperands.isValid)
             {
                 throw new NegativeOperandsException(isValidOperands.operands.Values);
