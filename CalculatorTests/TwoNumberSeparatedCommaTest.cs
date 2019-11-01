@@ -15,7 +15,9 @@ namespace CalculatorTests
         [InlineData("5,tytyty",5)]
         public void BinaryInputAddTest(string commaSeparatedOperands,int expectedResult)
         {
-            var validationService = new ValidationService();
+            var delimterService = new DelimiterService();
+
+            var validationService = new ValidationService(delimterService);
             var calService = new CalculatorService(validationService);
             var sum = calService.Add(commaSeparatedOperands);
             Assert.Equal(expectedResult, sum);
@@ -23,7 +25,8 @@ namespace CalculatorTests
         [Fact]
         public void BinaryInputAddExcpetionTest()
         {
-            var validationService = new ValidationService();
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
             var calService = new CalculatorService(validationService);
             try
             {

@@ -1,6 +1,7 @@
 ﻿using calculator.Models;
 using calculator.Models.interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static calculator.Models.extension.OperandExtensions;
 
@@ -8,6 +9,11 @@ namespace calculator.Services
 {
     public class ValidationService : IValidationService
     {
+        private readonly IDelimiterService _DelimiterService;
+        public ValidationService(IDelimiterService DelimiterService)
+        {
+            _DelimiterService = DelimiterService;
+        }
         public BinaryOperands Validate(string commaSeparatedOperands)
         {
             //empty input string is converted to 0
@@ -36,6 +42,18 @@ namespace calculator.Services
 
         public (bool isValid, Operands operands) ValidateMultipleOperands(string commaSeparatedOperands)
         {
+            var delimterAndInput= _DelimiterService.Parse(commaSeparatedOperands);
+
+            string[] delimiters;
+            if(delimterAndInput.delimiter.Length==0)
+            {
+                delimiters = new string[] { ",", "\n" };
+            }else
+            {
+                delimiters = delimterAndInput.delimiter;
+                commaSeparatedOperands = delimterAndInput.operandSeparatedByDelimiter;
+            }
+
             var ret = new Operands();
 
             if (string.IsNullOrEmpty(commaSeparatedOperands))
@@ -43,27 +61,7 @@ namespace calculator.Services
                 ret.Values.AddRange(new [] { 0, 0 });
                 return (true,ret);
             }
-            var operands = commaSeparatedOperands.Split(new char[] { ',','\n' });
-            //if (operands.Length <= 2)
-            //{
-            //    var binary = Validate(commaSeparatedOperands);
-            //    ret.Values.Add(binary.Operand1);
-            //    ret.Values.Add(binary.Operand2);
-            //    if(binary.Operand1<0 || binary.Operand2<0)
-            //    {
-            //        var negativeoperands = new Operands();
-            //        if (binary.Operand1 < 0)
-            //        {
-            //            negativeoperands.Values.Add(binary.Operand1);
-            //        }
-            //        if (binary.Operand2 < 0)
-            //        {
-            //            negativeoperands.Values.Add(binary.Operand2);
-            //        }
-            //        return (false, negativeoperands);
-            //    }
-            //    return (true,ret);
-            //}
+            var operands = commaSeparatedOperands.Split(delimiters,StringSplitOptions.None);
             if (operands.Select(x => x.ToIsValidOperand()).Any(x => !x.isValid))
             {
                 var negativeResult = new Operands();
@@ -76,13 +74,6 @@ namespace calculator.Services
             }
 
             ret.Values.AddRange(operands.Select(x => x.ToIsValidOperand().value));
-            //ret.Values.AddRange(operands.Select(x => x.ToIntOperand()));
-            //if(ret.Values.Any(x=>x<0))
-            //{
-            //    var negativeResult = new Operands();
-            //    negativeResult.Values.AddRange(ret.Values.Where(x => x < 0).ToList());
-            //    return (false, negativeResult);
-            //}
             return (true,ret);
         }
     }

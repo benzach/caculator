@@ -10,6 +10,7 @@ namespace calculator
         static void Main(string[] args)
         {
             var serviceProvider = new ServiceCollection()
+                                      .AddSingleton<IDelimiterService,DelimiterService>()
                                       .AddSingleton<IValidationService, ValidationService>()
                                       .AddSingleton<ICalculatorService, CalculatorService>()
                                       .BuildServiceProvider();
