@@ -42,7 +42,16 @@ namespace calculator.Services
 
         public (bool isValid, Operands operands) ValidateMultipleOperands(string commaSeparatedOperands)
         {
-            var delimterAndInput= _DelimiterService.Parse(commaSeparatedOperands);
+            var ret = new Operands();
+
+            if (string.IsNullOrEmpty(commaSeparatedOperands))
+            {
+                ret.Values.AddRange(new[] { 0, 0 });
+                return (true, ret);
+            }
+
+
+            var delimterAndInput = _DelimiterService.Parse(commaSeparatedOperands);
 
             string[] delimiters;
             if(delimterAndInput.delimiter.Length==0)
@@ -54,13 +63,6 @@ namespace calculator.Services
                 commaSeparatedOperands = delimterAndInput.operandSeparatedByDelimiter;
             }
 
-            var ret = new Operands();
-
-            if (string.IsNullOrEmpty(commaSeparatedOperands))
-            {
-                ret.Values.AddRange(new [] { 0, 0 });
-                return (true,ret);
-            }
             var operands = commaSeparatedOperands.Split(delimiters,StringSplitOptions.None);
             if (operands.Select(x => x.ToIsValidOperand()).Any(x => !x.isValid))
             {

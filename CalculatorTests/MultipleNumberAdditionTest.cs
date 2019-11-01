@@ -25,6 +25,9 @@ namespace CalculatorTests
         [InlineData("1\n2\n3,4,5\n6,7,8,9,10,11,12\n", 78)]
         [InlineData(@"//#\n2#5", 7)]
         [InlineData(@"//,\n2,5,9", 16)]
+        [InlineData(@"//,\n2,ff,100",102)]
+        [InlineData(@"//[***]\n11***22***33",66)]
+        [InlineData(@"//[###]\n11###22###33", 66)]
         public void OperandListAddTest(string commaSeparated, int expected)
         {
             var delimterService = new DelimiterService();
