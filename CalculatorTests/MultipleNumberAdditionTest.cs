@@ -107,5 +107,51 @@ namespace CalculatorTests
             
 
         }
+
+        [Theory]
+        [InlineData("1,5000", 0)]
+        [InlineData("5000\n2", 2500)]
+        [InlineData("1000,2,2", 250)]
+        [InlineData("100,2\n2", 25)]
+        public void DivisionListAndTestWitLimit2000(string input, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.DivisionOperands(input, "", true, 6000);
+            Assert.Equal(expectedResult, sum.result);
+
+        }
+        [Theory]
+        [InlineData("1,5000", 5000)]
+        [InlineData("5000\n2", 10000)]
+        [InlineData("1000,2,2", 4000)]
+        [InlineData("100,2\n2", 400)]
+        public void MultiplyListAndTestWitLimit2000(string input, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.MultiplyOperands(input, "", true, 6000);
+            Assert.Equal(expectedResult, sum.result);
+
+        }
+        [Theory]
+        [InlineData("5000,1", 4999)]
+        [InlineData("5000\n2", 4998)]
+        [InlineData("1000,2,2", 996)]
+        [InlineData("100,2\n2", 96)]
+        public void SubtractListAndTestWitLimit2000(string input, int expectedResult)
+        {
+            var delimterService = new DelimiterService();
+            var validationService = new ValidationService(delimterService);
+
+            var calService = new CalculatorService(validationService);
+            var sum = calService.SubtractOperands(input, "", true, 6000);
+            Assert.Equal(expectedResult, sum.result);
+
+        }
     }
 }
