@@ -24,8 +24,15 @@ namespace calculator
                 {
                     break;
                 }
-                var sum=CalculatorService.AddOperands(input);
-                Console.WriteLine($"sum of {input} = {sum}");
+                try
+                {
+                    var sum = CalculatorService.AddOperands(input);
+                    Console.WriteLine($"sum of {input} = {sum}");
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
             }
             
         }

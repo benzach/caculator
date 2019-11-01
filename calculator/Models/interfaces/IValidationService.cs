@@ -7,6 +7,7 @@ namespace calculator.Models.interfaces
     public interface IValidationService
     {
         BinaryOperands Validate(string commaSeparatedOperands);
-        Operands ValidateMultipleOperands(string commaSeparatedOperands);
+        (bool isValid, Operands operands) ValidateMultipleOperands(string commaSeparatedOperands);
     }
+            
 }

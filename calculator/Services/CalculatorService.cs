@@ -1,4 +1,5 @@
-﻿using calculator.Models.interfaces;
+﻿using calculator.Models;
+using calculator.Models.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,12 @@ namespace calculator.Services
 
         public int AddOperands(string numbersSeparatedByComma)
         {
-            var operands = _ValidationService.ValidateMultipleOperands(numbersSeparatedByComma);
-            return operands.Values.Sum();
+            var isValidOperands = _ValidationService.ValidateMultipleOperands(numbersSeparatedByComma);
+            if(!isValidOperands.isValid)
+            {
+                throw new NegativeOperandsException(isValidOperands.operands.Values);
+            }
+            return isValidOperands.operands.Values.Sum();
         }
     }
 }
