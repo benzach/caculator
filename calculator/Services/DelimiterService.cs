@@ -1,6 +1,7 @@
 ﻿using calculator.Models.interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -30,27 +31,10 @@ namespace calculator.Services
                     return (new string[] { a}, delimiterAndInput[1]);
                 }else
                 {
-                    return (new string[] { }, input);
+                    var delim = delimeters.Skip(1).Select(x => x.Substring(0, x.Length - 1)).ToArray();
+                    return (delim, delimiterAndInput[1]);
                 }
             }
         }
-        //public (string[] delimiter, string operandSeparatedByDelimiter) Parse1(string input)
-        //{
-        //    if(input.Substring(0,2)!="//")
-        //    {
-        //        return (new string[] { }, input);
-
-        //    }
-        //    if(input.Substring)
-        //    var match = delimiterAtFront.Match(input);
-        //    if (match.Success && match.Groups.Count > 2)
-        //    {
-        //        return (new string[] { match.Groups[1].Value }, match.Groups[2].Value);
-        //    }
-        //    else
-        //    {
-        //        return (new string[] { }, input);
-        //    }
-        //}
     }
 }

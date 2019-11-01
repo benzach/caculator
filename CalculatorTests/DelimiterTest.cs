@@ -12,6 +12,7 @@ namespace CalculatorTests
         [InlineData(@"//#\n2#5",new string[] { "#"},"2#5")]
         [InlineData(@"2,3,4", new string[] { },"2,3,4")]
         [InlineData(@"//[***]\n11***22***33",new string[] {"***"},"11***22***33")]
+        [InlineData(@"//[*][!!][r9r]\n11r9r22*hh*33!!44",new string[] { "*","!!","r9r"}, "11r9r22*hh*33!!44")]
         public void ParseInputTest(string input,string[] delimiter, string customCharDelimiter)
         {
             var service = new DelimiterService();
